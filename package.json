@@ -1,0 +1,21 @@
+{
+  "name": "twitch-viewer-bot",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "https://github.com/gabrielhs1357/twitch-viewer-bot.git",
+  "author": "gabrielhs1357 <gabrielhs1357@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "moment-timezone": "^0.5.32",
+    "puppeteer": "^5.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

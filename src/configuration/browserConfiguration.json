@@ -1,0 +1,20 @@
+{
+  "launchOptions": {
+    "args": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--ignore-certificate-errors",
+      "--proxy-server=\"direct://\"",
+      "--proxy-bypass-list=*",
+      "--start-maximized"
+    ]
+  },
+  "loginCookies": {
+    "name": "auth-token",
+    "value": null,
+    "domain": ".twitch.tv",
+    "path": "/",
+    "httpOnly": false,
+    "secure": true
+  }
+}
