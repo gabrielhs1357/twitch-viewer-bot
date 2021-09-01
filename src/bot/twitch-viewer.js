@@ -1,6 +1,8 @@
 const puppeteer = require('puppeteer');
 const { launchOptions, loginCookies } = require('../configuration/browserConfiguration.json');
 
+var matureContentWarningSelector = '#root > div > div.Layout-sc-nxg1ff-0.gnrDvI > div.Layout-sc-nxg1ff-0.iNmjIQ > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-588ddc-0.iTtXFV.persistent-player > div > div.Layout-sc-nxg1ff-0.eVxqWI.video-player > div > div > div > div > div:nth-child(7) > div > div.Layout-sc-nxg1ff-0.imInLb.content-overlay-gate__allow-pointers > button';
+
 function readBooleanConfig(value) {
   if (value.toLowerCase() == 'false') return false;
   return true;
@@ -64,15 +66,22 @@ const twitchViewer = {
 
       console.log(`Loading ${channelUrl}`.blue);
 
-      if (hasOnePage) {
-        await twitchViewer.page.goto(channelUrl, { waitUntil: 'networkidle2', timeout: 0 });
-        hasOnePage = false;
+      async function confirmMatureContentWarning() {
+        const button = await twitchViewer.page.$(matureContentWarningSelector, { timeout: 5000 });
+        if (button) {
+          console.log(`Confirming mature content warning for ${channel}...`.blue);
+          await button.click();
+        }
       }
 
-      else {
-        const page = await twitchViewer.browser.newPage();
-        await page.goto(channelUrl, { waitUntil: 'networkidle2', timeout: 0 });
-      }
+      if (!hasOnePage)
+        twitchViewer.page = await twitchViewer.browser.newPage();
+      else
+        hasOnePage = false;
+
+      await twitchViewer.page.goto(channelUrl, { waitUntil: 'networkidle2', timeout: 0 });
+
+      await confirmMatureContentWarning();
     }
     console.log(`Watching all the ${channels.length} channels!`.green);
   },
