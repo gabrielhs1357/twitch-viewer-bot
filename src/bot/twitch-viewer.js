@@ -4,8 +4,9 @@ const { launchOptions, loginCookies } = require('../configuration/browserConfigu
 var matureContentWarningSelector = '#root > div > div.Layout-sc-nxg1ff-0.gnrDvI > div.Layout-sc-nxg1ff-0.iNmjIQ > main > div.root-scrollable.scrollable-area.scrollable-area--suppress-scroll-x > div.simplebar-scroll-content > div > div > div.InjectLayout-sc-588ddc-0.iTtXFV.persistent-player > div > div.Layout-sc-nxg1ff-0.eVxqWI.video-player > div > div > div > div > div:nth-child(7) > div > div.Layout-sc-nxg1ff-0.imInLb.content-overlay-gate__allow-pointers > button';
 
 function readBooleanConfig(value) {
-  if (value.toLowerCase() == 'false') return false;
-  return true;
+  if (value == null || value.toLowerCase() == 'true') return true;
+  else if (value.toLowerCase() == 'false') return false;
+  throw new Error(`Invalid configuration variable: ${value}`);
 };
 
 const twitchViewer = {
@@ -18,12 +19,8 @@ const twitchViewer = {
   channels: process.env.CHANNELS,
 
   initialize: async () => {
-    var width = parseInt(process.env.WIDTH) || 1920;
-    var height = parseInt(process.env.HEIGHT) || 1080;
-    var headless = process.env.HEADLESS || true;
-
-    twitchViewer.launchOptions.defaultViewport = { width, height };
-    twitchViewer.launchOptions.headless = typeof headless == "boolean" ? headless : readBooleanConfig(headless);
+    twitchViewer.launchOptions.defaultViewport = null;
+    twitchViewer.launchOptions.headless = readBooleanConfig(process.env.HEADLESS);
 
     console.log('Opening browser...'.blue);
 

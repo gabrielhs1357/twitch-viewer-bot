@@ -8,5 +8,4 @@ const twitchViewer = require('../src/bot/twitch-viewer');
 
   if (await twitchViewer.isLogged())
     await twitchViewer.openChannels();
-
 })();
