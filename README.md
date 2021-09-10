@@ -13,7 +13,7 @@
 
 ## Description
 
-This is a bot that watches live streams on Twitch! This is very useful if you want to watch some live streams and earn points on for spending on their stores.
+This is a bot that watches live streams on Twitch! This is very useful if you want to watch some live streams and earn points for spending on their stores.
 
 ## Technologies
 
