@@ -61,10 +61,10 @@
     HEADLESS=true_or_false
     ```
 
-5. Run the project by typing:
+5. Start the application in development environment:
 
     ```shell    
-    yarn start
+    yarn dev
     ```
     
 ## :closed_book: License
