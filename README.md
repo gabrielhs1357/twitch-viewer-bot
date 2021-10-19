@@ -10,7 +10,6 @@
 
 > Keep watching your favorite streamers 24/7!
 
-<br />
 <p align="center"><img src=".github/gif.gif?raw=true" width="1000"/></p>
 
 ---
