@@ -22,7 +22,7 @@ const twitchViewer = {
     twitchViewer.launchOptions.defaultViewport = null;
     twitchViewer.launchOptions.headless = readBooleanConfig(process.env.HEADLESS);
 
-    if (process.env.HEADLESS.toLowerCase() != 'false') launchOptions.args.push("--window-size=1920,1080");
+    if (process.env.HEADLESS?.toLowerCase() != 'false') launchOptions.args.push("--window-size=1920,1080");
 
     console.log('Opening browser...'.blue);
 
