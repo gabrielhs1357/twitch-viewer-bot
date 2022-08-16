@@ -10,21 +10,21 @@ function readBooleanConfig(value) {
 };
 
 const twitchViewer = {
-  browser: null,
-  page: null,
-  launchOptions: launchOptions,
-  loginCookies: loginCookies,
-  authToken: process.env.AUTH_TOKEN,
-  twitchUrl: 'https://www.twitch.tv',
-  channels: process.env.CHANNELS,
+  initialize: async (accountSetup) => {
+    twitchViewer.browser = null;
+    twitchViewer.page = null;
+    twitchViewer.launchOptions = launchOptions;
+    twitchViewer.loginCookies = loginCookies;
+    twitchViewer.authToken = accountSetup.accountToken;
+    twitchViewer.twitchUrl = 'https://www.twitch.tv';
+    twitchViewer.channels = accountSetup.channels;
 
-  initialize: async () => {
     twitchViewer.launchOptions.defaultViewport = null;
     twitchViewer.launchOptions.headless = readBooleanConfig(process.env.HEADLESS);
 
     if (process.env.HEADLESS?.toLowerCase() != 'false') launchOptions.args.push("--window-size=1920,1080");
 
-    console.log('Opening browser...'.blue);
+    console.log(`Opening browser for ${accountSetup.accountName}...`.blue);
 
     twitchViewer.browser = await puppeteer.launch(twitchViewer.launchOptions);
 
@@ -56,7 +56,7 @@ const twitchViewer = {
   },
 
   openChannels: async () => {
-    const channels = twitchViewer.channels.split(',');
+    const channels = twitchViewer.channels;
 
     var hasOnePage = true;
 
@@ -82,7 +82,7 @@ const twitchViewer = {
 
       await confirmMatureContentWarning();
     }
-    console.log(`Watching all the ${channels.length} channels!`.green);
+    console.log(`Watching all the ${channels.length} channel(s)!`.green);
   },
 };
 
